@@ -53,7 +53,7 @@ def cb_admin_check(func: Callable) -> Callable:
         if cb.from_user.id in admemes:
             return await func(client, cb)
         else:
-            await cb.answer("💡 only admin can tap this button !", show_alert=True)
+            await cb.answer("💡 Bu düğmeye yalnızca yönetici dokunabilir !", show_alert=True)
             return
 
     return decorator
@@ -118,16 +118,15 @@ async def generate_cover(title, thumbnail, ctitle):
 async def playlist(client, message):
 
     keyboard = InlineKeyboardMarkup(
-        [
             [
-                InlineKeyboardButton("• Gʀᴏᴜᴘ", url=f"https://t.me/{GROUP_SUPPORT}"),
-                InlineKeyboardButton(
-                    "• Cʜᴀɴɴᴇʟ", url=f"https://t.me/{UPDATES_CHANNEL}"
-                ),
+                [
+                    InlineKeyboardButton("⏏️ Butonlar", callback_data="menü"),
+                    InlineKeyboardButton("❌ Kapat", callback_data="cls"),
+                ],[
+                    InlineKeyboardButton("🇹🇷 Resmi Kanal", url=f"https://t.me/Sohbetdestek")
+                ],
             ]
-        ]
-    )
-
+        )
     global que
     if message.chat.id in DISABLED_GROUPS:
         return
@@ -185,7 +184,7 @@ def r_ply(type_):
             [
                 InlineKeyboardButton("📖 PLAY-LIST", "playlist"),
             ],
-            [InlineKeyboardButton("🗑 Close", "cls")],
+            [InlineKeyboardButton("🗑 Kapat", "cls")],
         ]
     )
     return mar
@@ -235,7 +234,7 @@ async def music_onoff(_, message):
     status = message.text.split(None, 1)[1]
     message.chat.id
     if status in ("ON", "on", "On"):
-        lel = await message.reply("`processing...`")
+        lel = await message.reply("`İşleniyor...`")
         if not message.chat.id in DISABLED_GROUPS:
             await lel.edit("» **music player already turned on.**")
             return
@@ -413,7 +412,7 @@ async def m_cb(b, cb):
     elif type_ == "cls":
         await cb.message.delete()
 
-    elif type_ == "menu":
+    elif type_ == "menü":
         stats = updated_stats(cb.message.chat, qeue)
         marr = InlineKeyboardMarkup(
             [
@@ -451,7 +450,7 @@ async def m_cb(b, cb):
                 await cb.message.edit(
                     nmq,
                     reply_markup=InlineKeyboardMarkup(
-                        [[InlineKeyboardButton("🗑 Close", callback_data="close")]]
+                        [[InlineKeyboardButton("🗑 Kapat", callback_data="close")]]
                     ),
                 )
             else:
@@ -485,13 +484,13 @@ async def m_cb(b, cb):
             await cb.answer(
                 "userbot is not connected to voice chat.", show_alert=True
             )
-@Client.on_message(command(["play", f"play@{BOT_USERNAME}"]) & other_filters)
+@Client.on_message(command(["oynat", f"play@{BOT_USERNAME}"]) & other_filters)
 async def ytplay(_, message: Message):
     chat_id = get_chat_id(message.chat)
     global que
     if message.chat.id in DISABLED_GROUPS:
         return
-    lel = await message.reply("**𝙹𝚄𝚂𝚃 𝚆𝙰𝙸𝚃 𝙰 𝚂𝙴𝙲𝙾𝙽𝙳 💫🥺 𝙵𝙾𝚁 𝙿𝙻𝙰𝚈 𝚂𝙾𝙽𝙶 ❤️✨♩**")
+    lel = await message.reply("**Sadece birkaç saniye Bekleyin...**")
     administrators = await get_administrators(message.chat)
     chid = message.chat.id
 
@@ -533,7 +532,7 @@ async def ytplay(_, message: Message):
     for i in message.command[1:]:
         query += " " + str(i)
     print(query)
-    await lel.edit("💙 **𝙹𝚄𝚂𝚃 𝚆𝙰𝙸𝚃 𝙰 𝚂𝙴𝙲𝙾𝙽𝙳 💫🥺 𝙵𝙾𝚁 𝙿𝙻𝙰𝚈 𝚂𝙾𝙽𝙶 ..**")
+    await lel.edit("💙 **Sadece biraz bekleyin.. 😇**")
     ydl_opts = {"format": "bestaudio[ext=m4a]"}
     try:
         results = YoutubeSearch(query, max_results=1).to_dict()
@@ -595,7 +594,7 @@ async def ytplay(_, message: Message):
         await lel.delete()
         await message.reply_photo(
             photo="final.png",
-            caption=f"💡 **Track added to queue »** `{position}`\n\n🏷 **Name:** [{title[:35]}...]({url})\n⏱ **Duration:** `{duration}`\n🎧 **Request by:** {message.from_user.mention}",
+            caption=f"💡 **Kuyruğa eklenen parça »** `{position}`\n\n🏷 **İsmi:** [{title[:35]}...]({url})\n⏱ **Süresi:** `{duration}`\n🎧 **Ekleyen:** {message.from_user.mention}",
             reply_markup=keyboard,
         )
     else:
@@ -619,7 +618,7 @@ async def ytplay(_, message: Message):
             )
         except:
             await lel.edit(
-                "😕 **voice chat not found**\n\n» please turn on the voice chat first"
+                "😕 **İstediğiniz: bulunamadı**\n\n» lütfen önce sesli sohbeti açın.."
             )
             return
         await lel.delete()
