@@ -1,5 +1,5 @@
 import os
-from os import path
+from os import pa
 from typing import Callable
 from asyncio.queues import QueueEmpty
 
