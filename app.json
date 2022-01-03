@@ -7,7 +7,7 @@
         "voice chat", 
         "telegram"
     ],
-    "repository": "https://github.com/BrayDanXD/ProMusic",
+    "repository": "https://github.com/Alfa00006/Le",
     "stack": "container",
     "env": {
         "SESSION_NAME": {
