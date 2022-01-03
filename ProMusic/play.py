@@ -569,15 +569,15 @@ async def ytplay(_, message: Message):
     except:
         pass
     keyboard = InlineKeyboardMarkup(
-        [
             [
-
-                    InlineKeyboardButton(text="💫 𝙲𝙷𝙰𝙽𝙽𝙴𝙻✨", url=f"https://t.me/DeeCodeBots"),
-
-                    InlineKeyboardButton(text="💫𝚂𝚄𝙿𝙿𝙾𝚁T✨", url=f"https://t.me/DeCodeSupport")
-]
+                [
+                    InlineKeyboardButton("⏏️ Butonlar", callback_data="menü"),
+                    InlineKeyboardButton("❌ Kapat", callback_data="cls"),
+                ],[
+                    InlineKeyboardButton("🇹🇷 Resmi Kanal", url=f"https://t.me/Sohbetdestek")
+                ],
             ]
-    )
+        )
     message.from_user.first_name
 
     await generate_cover(title, thumbnail, ctitle)
